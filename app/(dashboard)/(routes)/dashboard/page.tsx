@@ -15,6 +15,7 @@ import {
 import { useRouter } from "next/navigation";
 import { motion as m } from "framer-motion";
 import { useEffect, useState } from "react";
+import Heading from "@/components/ui/Heading";
 const tools = [
   {
     label: "Code Interpretation",
@@ -72,13 +73,11 @@ export default function Dashboard() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.85, ease: "easeOut" }}>
-        <div className="space-y-4 mb-8 w-[80%]">
-          <h2 className="font-black text-2xl tablet:text-3xl laptop:text-[40px] text-center text-white">
-            Explore the Power of AI
-          </h2>
-          <p className="text-muted-foreground font-light text-sm md:text-lg text-center">
-            Chat with the Smartest AI - Experience the power of AI
-          </p>
+        <div className="mb-10 w-full flex justify-center items-center">
+          <Heading
+            heading=" Explore the Power of AI"
+            content="Chat with the Smartest AI - Experience the power of AI"
+          />
         </div>
         <div className=" w-[70%] phone:w-[80%] grid grid-cols-1 gap-7">
           {tools.map((tool, index) => {
@@ -87,14 +86,14 @@ export default function Dashboard() {
                 onClick={() => router.push(tool.href)}
                 key={tool.href}
                 className={cn(
-                  "relative bg-black border-white/5 flex items-center justify-between hover:shadow-md transition cursor-pointer"
+                  "relative bg-black border-white/5 flex items-center justify-between hover:shadow-md transition cursor-pointer group"
                 )}>
                 <div
                   className={cn(
                     "absolute inset-[-0.05rem]  rounded-xl ",
                     tool.label === "Upgrade"
-                      ? "bg-gradient-to-br from-violet-700 to-pink-700 blur-sm"
-                      : "bg-gradient-to-br from-[rgba(228,227,249,0.3)] to-white/5"
+                      ? "bg-gradient-to-br from-violet-700 to-pink-700 blur-sm group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-pink-500 group-hover:blur-md transition "
+                      : "bg-gradient-to-br from-[rgba(228,227,249,0.3)] to-white/5 group-hover:bg-gradient-to-br group-hover:from-[rgba(228,227,249,0.6)] group-hover:to-white/20 transition delay-100"
                   )}></div>
                 <div className="flex items-center gap-x-4 relative bg-black w-full rounded-xl p-4">
                   <div className={cn("w-fit rounded-md p-2", tool.bgcolor)}>

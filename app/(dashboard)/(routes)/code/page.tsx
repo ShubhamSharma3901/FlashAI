@@ -132,7 +132,7 @@ function Code() {
               ) : (
                 <Button
                   type="submit"
-                  className="font-semibold w-full bg-gradient-to-br from-slate-100 via-slate-300 to-slate-400 backdrop-blur-sm text-black shadow-lg  shadow-muted-foreground/30 border border-neutral-600 transition-colors ease-in-out hover:animate-in hover:bg-neutral-600/50"
+                  className="font-semibold w-full bg-gradient-to-br from-slate-100 via-slate-300 to-slate-400 backdrop-blur-sm text-black shadow-lg  shadow-muted-foreground/30 border border-neutral-600 transition-colors ease-in-out hover:animate-in hover:bg-neutral-600/50 "
                   variant="secondary"
                   size="lg">
                   Submit
