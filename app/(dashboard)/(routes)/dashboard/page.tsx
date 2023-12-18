@@ -10,8 +10,11 @@ import {
   ScanEyeIcon,
   CheckCircle,
   Terminal,
+  Loader2,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { motion as m } from "framer-motion";
+import { useEffect, useState } from "react";
 const tools = [
   {
     label: "Code Interpretation",
@@ -35,13 +38,6 @@ const tools = [
     href: "/commands",
   },
   {
-    label: "Video Generation",
-    icon: VideoIcon,
-    color: "text-orange-700",
-    bgcolor: "bg-orange-700/20",
-    href: "/video",
-  },
-  {
     label: "Code Generation",
     icon: Code,
     color: "text-green-700",
@@ -57,10 +53,25 @@ const tools = [
   },
 ];
 export default function Dashboard() {
+  const [isLoaded, setIsLoaded] = useState(false);
   const router = useRouter();
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+  if (isLoaded === false) {
+    return (
+      <div className="h-screen w-full flex justify-center items-center">
+        <Loader2 className="animate-spin h-auto w-[10%] text-white" />
+      </div>
+    );
+  }
   return (
     <>
-      <div className="z-[100] flex flex-col items-center justify-center">
+      <m.div
+        className="z-[100] flex flex-col items-center justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.85, ease: "easeOut" }}>
         <div className="space-y-4 mb-8 w-[80%]">
           <h2 className="font-black text-2xl tablet:text-3xl laptop:text-[40px] text-center text-white">
             Explore the Power of AI
@@ -69,13 +80,15 @@ export default function Dashboard() {
             Chat with the Smartest AI - Experience the power of AI
           </p>
         </div>
-        <div className=" w-[70%] phone:w-[80%] grid grid-cols-1 md:grid-cols-1 xl:grid-cols-1 2xl:grid-rows-6 gap-7">
-          {tools.map((tool) => {
+        <div className=" w-[70%] phone:w-[80%] grid grid-cols-1 gap-7">
+          {tools.map((tool, index) => {
             return (
               <Card
                 onClick={() => router.push(tool.href)}
                 key={tool.href}
-                className=" relative bg-black border-white/5 flex items-center justify-between hover:shadow-md transition cursor-pointer">
+                className={cn(
+                  "relative bg-black border-white/5 flex items-center justify-between hover:shadow-md transition cursor-pointer"
+                )}>
                 <div
                   className={cn(
                     "absolute inset-[-0.05rem]  rounded-xl ",
@@ -97,7 +110,7 @@ export default function Dashboard() {
             );
           })}
         </div>
-      </div>
+      </m.div>
     </>
   );
 }

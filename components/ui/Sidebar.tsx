@@ -53,13 +53,6 @@ const routes = [
     bg: "bg-pink-700",
   },
   {
-    label: "Music Generation",
-    icon: MusicIcon,
-    href: "/music",
-    color: "text-emerald-500",
-    bg: "bg-emerald-500",
-  },
-  {
     label: "Code Generation",
     icon: CodeIcon,
     href: "/code",
@@ -78,7 +71,10 @@ function Sidebar() {
   return (
     <div className="space-y-4 py-4 flex flex-col bg-black/20 backdrop-blur-sm text-white h-full  border-white/10 border-r">
       <div className="px-3 py-2 flex-1">
-        <Link href="/dashboard" className="flex items-center pl-3 mb-10">
+        <Link
+          href="/dashboard"
+          className="flex items-center pl-3 mb-10"
+          prefetch={true}>
           <div className="relative w-14 h-14 mr-1">
             <Image fill src="/logo.png" alt="Logo-Image" />
           </div>
@@ -92,6 +88,7 @@ function Sidebar() {
               <Link
                 href={route.href}
                 key={route.href}
+                prefetch={true}
                 className={cn(
                   "text-sm group flex px-2 py-2 w-[95%] justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-full transition-all delay-100 ease-linear hover:delay-0",
                   pathname === route.href

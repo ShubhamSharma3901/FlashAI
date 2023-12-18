@@ -20,6 +20,8 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 import { Loader2 } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
+import { motion as m } from "framer-motion";
+
 function InterPretCode() {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -82,7 +84,11 @@ function InterPretCode() {
   }
 
   return (
-    <div className="flex justify-center items-center flex-col">
+    <m.div
+      className="flex justify-center items-center flex-col"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ ease: "easeOut", duration: 0.85 }}>
       <Heading
         heading="Commands"
         content="Using bash, git, powershell? Write what you need and get the command"
@@ -156,7 +162,7 @@ function InterPretCode() {
           )}
         </div>
       </div>
-    </div>
+    </m.div>
   );
 }
 

@@ -1,7 +1,7 @@
 import Navbar from "@/components/ui/Navbar";
 import Sidebar from "@/components/ui/Sidebar";
 import React, { Suspense } from "react";
-import Loading from "./loading";
+
 import { Loader2 } from "lucide-react";
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {

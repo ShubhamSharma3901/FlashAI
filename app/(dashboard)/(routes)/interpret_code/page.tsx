@@ -18,7 +18,8 @@ import Heading from "@/components/ui/Heading";
 import Message from "@/components/ui/message";
 
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { features } from "process";
+
+import { motion as m } from "framer-motion";
 
 function InterPretCode() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -78,7 +79,11 @@ function InterPretCode() {
   }
 
   return (
-    <div className="flex justify-center items-center flex-col">
+    <m.div
+      className="flex justify-center items-center flex-col"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ ease: "easeOut", duration: 0.85 }}>
       <Heading
         heading="Code Interpreter"
         content="Explain Some Code based on the language, code and syntax provided"
@@ -152,7 +157,7 @@ function InterPretCode() {
           )}
         </div>
       </div>
-    </div>
+    </m.div>
   );
 }
 

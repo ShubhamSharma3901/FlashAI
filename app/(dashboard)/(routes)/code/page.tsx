@@ -18,10 +18,11 @@ import Message from "@/components/ui/message";
 
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { Loader2 } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
 import { motion as m } from "framer-motion";
 
-function InterPretCode() {
+function Code() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -50,7 +51,11 @@ function InterPretCode() {
   }: z.infer<typeof interpretRequestMessagesSchema>) => {
     try {
       if (inputCode === "" || inputCode === null) {
-        throw new Error("Message cannot be empty");
+        toast({
+          title: "Empty Input",
+          description: "Input can't be Empty",
+          variant: "destructive",
+        });
       }
       const userMessage: ChatCompletionUserMessageParam = {
         role: "user",
@@ -58,7 +63,7 @@ function InterPretCode() {
       };
       const newMessage = [...messages, userMessage];
 
-      const response = await axios.post("/api/fix_code", {
+      const response = await axios.post("/api/generate_code", {
         message: newMessage,
       });
 
@@ -85,8 +90,8 @@ function InterPretCode() {
       animate={{ opacity: 1 }}
       transition={{ ease: "easeOut", duration: 0.85 }}>
       <Heading
-        heading="Fix Code"
-        content="Trying to Solve a Debug Problem? Try the Bug Solving Code Prompt "
+        heading="Code Generation"
+        content="Want to generate code faster? Simply enter your prompt here"
       />
       <div className="flex py-[3rem]  gap-[3rem] flex-col justify-center items-center w-[90%]">
         <div className="h-[100%] w-[90%]">
@@ -103,8 +108,8 @@ function InterPretCode() {
                 {...register("inputCode")}
                 disabled={isLoading}
                 className="rounded-lg relative"
-                language="js"
-                placeholder="Please enter your code snippet here."
+                language="git"
+                placeholder="Generate an React Button Component"
                 padding={15}
                 data-color-mode="dark"
                 style={{
@@ -119,7 +124,7 @@ function InterPretCode() {
               {isLoading ? (
                 <Button
                   disabled
-                  className="font-semibold w-full bg-slate-100"
+                  className="font-semibold w-full"
                   variant="secondary">
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Please wait
@@ -147,7 +152,7 @@ function InterPretCode() {
                     <Message
                       role={mess?.role}
                       content={mess?.content?.toString()}
-                      feature={"debug"}
+                      feature={"command"}
                     />
                   </div>
                 );
@@ -161,4 +166,4 @@ function InterPretCode() {
   );
 }
 
-export default InterPretCode;
+export default Code;
