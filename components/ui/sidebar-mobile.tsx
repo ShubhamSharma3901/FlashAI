@@ -8,7 +8,7 @@ import Sidebar from "./Sidebar";
 
 import { SideBarProps } from "./Sidebar";
 
-function SideBarMobile({ apiCount, maxCount }: SideBarProps) {
+function SideBarMobile({ apiCount, maxCount, isPro }: SideBarProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function SideBarMobile({ apiCount, maxCount }: SideBarProps) {
       </SheetTrigger>
       <SheetContent side="left" className="p-0 bg-black overflow-scroll">
         <div className="overflow-scroll">
-          <Sidebar apiCount={apiCount} maxCount={maxCount} />
+          <Sidebar apiCount={apiCount} maxCount={maxCount} isPro={isPro} />
         </div>
       </SheetContent>
     </Sheet>
