@@ -10,6 +10,7 @@ import { checkSubscription } from "@/lib/subscription";
 async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const apiCount = await getApiLimitCount();
   const isPro = await checkSubscription();
+  const maxCount = Number(process.env.MAX_COUNT);
 
   return (
     <>
@@ -18,11 +19,7 @@ async function DashboardLayout({ children }: { children: React.ReactNode }) {
         <div className="z-[-100] absolute left-0 right-0 top-[-10%] h-fit w-[1000px] rounded-full bg-[radial-gradient(circle_400px_at_50%_300px,#fbfbfb19,#000)]"></div>
 
         <div className="hidden h-full laptop:w-72 laptop:flex laptop:flex-col laptop:fixed laptop:inset-y-0 z-[80]">
-          <Sidebar
-            apiCount={apiCount}
-            maxCount={Number(process.env.MAX_COUNT)}
-            isPro={isPro}
-          />
+          <Sidebar apiCount={apiCount} maxCount={maxCount} isPro={isPro} />
         </div>
 
         <main className="laptop:pl-72">
