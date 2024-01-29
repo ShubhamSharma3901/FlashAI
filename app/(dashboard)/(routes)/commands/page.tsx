@@ -21,8 +21,11 @@ import { Loader2 } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
 import { motion as m } from "framer-motion";
+import { useProModal } from "@/Hooks/useProModal";
 
 function InterPretCode() {
+  const proModal = useProModal();
+
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -63,14 +66,18 @@ function InterPretCode() {
       };
       const newMessage = [...messages, userMessage];
 
-      const response = await axios.post("/api/fix_code", {
+      const response = await axios.post("/api/commands", {
         message: newMessage,
       });
 
       setMessages(() => [...newMessage, response.data?.res]);
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
+      if (err?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
+      //* Refetches all the new data in server components like in api limit check
       router.refresh();
     }
   };

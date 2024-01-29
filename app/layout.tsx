@@ -3,8 +3,11 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
+import ModalProvider from "@/components/Modal-Provider";
 
 const inter = Inter({ subsets: ["latin"] });
+
+import dynamic from "next/dynamic";
 
 export const metadata: Metadata = {
   title: "FlashAI",
@@ -17,10 +20,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const CrispWithNoSSR = dynamic(() => import("@/lib/crisp"));
   return (
     <ClerkProvider>
       <html lang="en">
+        <CrispWithNoSSR />
         <body className={inter.className}>
+          <ModalProvider />
           {children}
           <Toaster />
         </body>

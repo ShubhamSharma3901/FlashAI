@@ -6,7 +6,9 @@ import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "./sheet";
 import Sidebar from "./Sidebar";
 
-function SideBarMobile() {
+import { SideBarProps } from "./Sidebar";
+
+function SideBarMobile({ apiCount, maxCount }: SideBarProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -29,7 +31,7 @@ function SideBarMobile() {
       </SheetTrigger>
       <SheetContent side="left" className="p-0 bg-black overflow-scroll">
         <div className="overflow-scroll">
-          <Sidebar />
+          <Sidebar apiCount={apiCount} maxCount={maxCount} />
         </div>
       </SheetContent>
     </Sheet>

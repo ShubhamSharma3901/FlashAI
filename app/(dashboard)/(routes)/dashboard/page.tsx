@@ -11,11 +11,13 @@ import {
   CheckCircle,
   Terminal,
   Loader2,
+  Settings,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { motion as m } from "framer-motion";
 import { useEffect, useState } from "react";
 import Heading from "@/components/ui/Heading";
+import { useProModal } from "@/Hooks/useProModal";
 const tools = [
   {
     label: "Code Interpretation",
@@ -46,14 +48,15 @@ const tools = [
     href: "/code",
   },
   {
-    label: "Upgrade",
-    icon: SparklesIcon,
+    label: "Settings",
+    icon: Settings,
     color: "text-sky-400",
     bgcolor: "bg-sky-400/20",
-    href: "/upgrade",
+    href: "/settings",
   },
 ];
 export default function Dashboard() {
+  const proModal = useProModal();
   const [isLoaded, setIsLoaded] = useState(false);
   const router = useRouter();
   useEffect(() => {
@@ -83,7 +86,13 @@ export default function Dashboard() {
           {tools.map((tool, index) => {
             return (
               <Card
-                onClick={() => router.push(tool.href)}
+                onClick={() => {
+                  if (tool.label === "Upgrade") {
+                    proModal.onOpen();
+                    return;
+                  }
+                  router.push(tool.href as string);
+                }}
                 key={tool.href}
                 className={cn(
                   "relative bg-black border-white/5 flex items-center justify-between hover:shadow-md transition cursor-pointer group"

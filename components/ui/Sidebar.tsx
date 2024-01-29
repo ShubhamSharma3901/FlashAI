@@ -20,6 +20,8 @@ import {
   VideoIcon,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import FreeCounter from "../FreeCounter";
+import { Badge } from "./badge";
 
 const montserrat = Montserrat({ weight: "700", subsets: ["latin"] });
 
@@ -66,21 +68,34 @@ const routes = [
   },
 ];
 
-function Sidebar() {
+export interface SideBarProps {
+  apiCount: number;
+  maxCount: number;
+  isPro: boolean;
+}
+
+function Sidebar({ apiCount, maxCount, isPro }: SideBarProps) {
   const pathname = usePathname();
   return (
-    <div className="space-y-4 py-4 flex flex-col bg-black/20 backdrop-blur-sm text-white h-full  border-white/10 border-r">
+    <div className="space-y-4 py-4 flex flex-col justify-between phone:h-screen  bg-black/20 backdrop-blur-sm text-white laptop:h-full  border-white/10 border-r pb-10">
       <div className="px-3 py-2 flex-1">
         <Link
           href="/dashboard"
           className="flex items-center pl-3 mb-10"
           prefetch={true}>
-          <div className="relative w-14 h-14 mr-1">
+          <div className="relative w-10 h-10 mr-2">
             <Image fill src="/logo.png" alt="Logo-Image" />
           </div>
           <h1 className={cn("text-2xl font-bold", montserrat.className)}>
-            flash.ai
+            FlashAI
           </h1>
+          <Badge
+            className={cn(
+              "uppercase text-sm py-1 bg-gradient-to-br from-indigo-500 to-pink-500 ml-3",
+              isPro ? "block" : "hidden"
+            )}>
+            Pro
+          </Badge>
         </Link>
         <div className="space-y-3 flex flex-col justify-center items-center">
           {routes.map((route) => {
@@ -109,6 +124,9 @@ function Sidebar() {
             );
           })}
         </div>
+      </div>
+      <div className={cn("px-3", isPro ? "hidden" : "block")}>
+        <FreeCounter apiCount={apiCount} maxCount={maxCount} />
       </div>
     </div>
   );
